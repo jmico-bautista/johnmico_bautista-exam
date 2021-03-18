@@ -76,7 +76,7 @@
     }
     
     .videos .content:hover .title {
-        height:50%;
+        height:95%;
     }
 
     .videos .content .title {
@@ -130,11 +130,15 @@
                 <div class="videos">
                     <template v-for="( video, vid_index ) in channel.videos" >
                         <div class="container">
-                            <div class="content" :style="{ backgroundImage: 'url('+video.thumbnail+')' }">
-                                <div class="title">
-                                    <span>{{video.title}}</span>
+                            <a :href="video.video_link" target="_blank">
+                                <div class="content" :style="{ backgroundImage: 'url('+video.thumbnail+')' }">
+                                    <div class="title">
+                                        <span>{{video.title}}</span>
+                                        <hr/>
+                                        <span>{{video.description}}</span>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </template>
                 </div>

@@ -39,10 +39,10 @@ if ($res->num_rows == 0) {
             $channel_id = $save_id;
             $save_videos->execute();
         }
-
+        
     } else {
         echo "Error: ". $mysqli->error;
     }
 }
-
+echo "Sync Done ";
 ?>
