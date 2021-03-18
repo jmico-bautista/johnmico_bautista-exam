@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<style>
+    body{
+        margin: 0;
+        height: 100vh;
+        background-color: #cad1d6;
+    }
+    .banner {
+        height: 35vh;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .channel {
+        background: #e1e1e1;
+        width: 93%;
+        margin: auto;
+        margin-top: -86px;
+        height: 18vh;
+        border-radius: 5px;
+        padding: 11px;
+        box-sizing: border-box;
+        display: flex;
+    }
+
+    .channel .profile {
+        height: 100%;
+        width: 8%;
+        margin-right: 10px;
+    }
+
+    .channel .profile img {
+        width: 100%;
+        border-radius: 5px;
+    }
+
+    .channel .info .name {
+        font-weight: 900;
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+
+    .channel .info .description {
+        color: hsl(0,1%,30%);
+    }
+
+    .channel span {
+        letter-spacing: 0.1em;
+    }
+
+
+    .videos {
+        overflow: auto;
+        width: 94%;
+        margin: auto;
+    }
+
+    .videos .container {
+        height: 30vh;
+        width: 25%;
+        float: left;
+        padding: 10px;
+        margin-top: 10px;
+        box-sizing: border-box;
+    }
+
+    .videos .content {
+        cursor: pointer;
+        height: 100%;
+        border-radius: 5px;
+        background-position: center;
+        background-size: cover;
+        position: relative;
+        box-shadow: 7px 6px 5px rgb(0 0 0 / 18%);
+    }
+    
+    .videos .content:hover .title {
+        height:50%;
+    }
+
+    .videos .content .title {
+        box-sizing: border-box;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        background: #3e3a3a;
+        color: #efd6d6;
+        height: 0;
+        overflow: hidden;
+        padding: 13px 0 0 7px;
+        transition: all ease-in-out 0.3s;
+        border-radius: 0 0 5px 5px;
+    }
+
+    .videos .content .title span {
+        letter-spacing: 0.1em;
+    }
+</style>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Codalify Challenge</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <div id="app_body">
+            <template v-for="( channel, index ) in content">
+                <div class="banner" :style="{ backgroundImage: 'url('+channel.banner+')' }">
+                    <div class="banner--text">
+                        <span></span>
+                    </div>
+                </div>
+                <div class="channel">
+                    <div class="profile">
+                        <img :src="channel.profile_picture" alt="">
+                    </div>
+                    <div class="info">
+                        <div class="name">
+                            <span>{{channel.name}}</span>
+                        </div>
+                        <div class="description">
+                            <span>{{channel.description}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="videos">
+                    <template v-for="( video, vid_index ) in channel.videos" >
+                        <div class="container">
+                            <div class="content" :style="{ backgroundImage: 'url('+video.thumbnail+')' }">
+                                <div class="title">
+                                    <span>{{video.title}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </template>
+        </div>
+    </body>
+</html>
+
+<script>
+    var app = new Vue({
+        el: '#app_body',
+        data: {
+            content: {}
+        },
+        mounted () {
+            axios( { method: 'GET', url: 'http://localhost/codalify-challenge/youtube_channel_json.php' } )
+            	.then( response => (
+                    this.content = response.data
+                ) );
+        }
+    })
+
+</script>
