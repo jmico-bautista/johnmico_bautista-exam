@@ -154,7 +154,7 @@
             content: {}
         },
         mounted () {
-            axios( { method: 'GET', url: 'http://localhost/johnmico_bautista-exam/youtube_channel_json.php' } )
+            axios( { method: 'GET', url: 'youtube_channel_json.php' } )
             	.then( response => (
                     this.content = response.data
                 ) );
